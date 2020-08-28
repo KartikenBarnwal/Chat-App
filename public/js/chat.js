@@ -3,6 +3,7 @@ const socket = io()
 //elements
 const $messages = document.getElementById('messages')
 const $info = document.getElementById('info')
+const $main = document.getElementById('main')
 
 //template
 const messageTemplate = document.getElementById('message-template').innerHTML
@@ -16,26 +17,33 @@ const roomTemplate = document.getElementById('room-template').innerHTML
 
 const autoScroll = () => {
     // new message element
-    const $newMessage = $messages.lastElementChild
+    // const $newMessage = $messages.lastElementChild
 
     // height of the new child
-    const newMessageStyles = getComputedStyle($newMessage)
+    // const newMessageStyles = getComputedStyle($newMessage)
+    // const newMessagemargin = parseInt(newMessageStyles.marginBottom)
     // console.log(newMessageStyles)
-    const newMessageHeight = $newMessage.offsetHeight
+    // const newMessageHeight = $newMessage.offsetHeight + newMessagemargin
     
-    // Visible height
-    const visibleHeight = $messages.offsetHeight
+    // Visible height of main container
+    // const visibleHeight = $main.offsetHeight
 
-    // Height of the container
-    const containerHeight = $messages.scrollHeight
+    // Height of the container which exceeds the visible height
+    // const unrealizedHeight = $main.scrollHeight 
+    // console.log('unrealized height',unrealizedHeight)
 
     // How much i have Scrolled?
-    const scrollOffset = $messages.scrollTop + visibleHeight
+    // const scrollOffset = $messages.scrollTop + visibleHeight
+    // console.log('scrolloffset',scrollOffset)
 
-    if(containerHeight - newMessageHeight <= scrollOffset){
-        console.log('big yes')
-        $messages.scrollTop = $messages.scrollHeight
-    }
+    // if(unrealizedHeight - newMessageHeight <= scrollOffset){
+    //     console.log('big yes')
+    //     $main.scrollTop = $main.scrollHeight
+    // }
+
+
+    var objDiv = document.getElementById('main')
+    objDiv.scrollTop = objDiv.scrollHeight;
 }
 
 
@@ -44,16 +52,19 @@ socket.on('joined', (username, flag)=>{
     {
         const html = Mustache.render(joiningTemplate)
         $messages.insertAdjacentHTML('beforeend', html)
+        autoScroll()
     }
     else if(flag==1)
     {
         const html = Mustache.render(joiningTemplate2, {username})
         $messages.insertAdjacentHTML('beforeend', html)
+        autoScroll()
     }
 })
 socket.on('disjoined',(username)=>{
     const html = Mustache.render(disjoiningTemplate, {username})
     $messages.insertAdjacentHTML('beforeend', html)
+    autoScroll()
 })
 
 document.getElementById('send').addEventListener('click',(e)=>{
