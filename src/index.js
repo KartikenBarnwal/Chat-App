@@ -1,7 +1,7 @@
 const express = require('express')
 const http = require('http');
 const socketio = require('socket.io');
-const port = 3000 || process.env.PORT
+const port = process.env.PORT || 3000
 const path = require('path')
 const Filter = require('bad-words')
 const {addUser, removeUser, getUser, getUsersInRoom} = require('./utils/users')
