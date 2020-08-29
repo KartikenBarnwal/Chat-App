@@ -10,7 +10,7 @@ body{
     scroll-behavior: smooth;
 }
 
-.tooltip {
+/* .tooltip {
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black;
@@ -41,7 +41,7 @@ body{
   }
 .tooltip:hover .tooltiptext {
     visibility: visible;
-  }
+  } */
 
 .main{
     display: flex;
@@ -114,6 +114,7 @@ body{
     height: 50px;
     /* border: solid 2px #509ce7; */
     border: none;
+    outline: none;
     border-radius: 100px;
     font-size: 1.2rem;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
